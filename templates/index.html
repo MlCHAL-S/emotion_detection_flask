@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Emotion Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        .center-heading {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .card-custom {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .result-section {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+        .btn-custom:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container my-5">
+        <div class="card card-custom">
+            <div class="card-body">
+                <h1 class="center-heading">NLP - Emotion Detection</h1>
+                <h6 class="text-center text-muted mb-4">Make sure your text is at least 110 characters long. (The longer the better)</h6>
+
+                <div class="mb-4">
+                    <form method="POST">
+                        <div class="form-group">
+                            <label for="textToAnalyze" class="form-label">Please enter the text to be analyzed</label>
+                            <textarea class="form-control" id="textToAnalyze" name="textToAnalyze" rows="6" placeholder="Enter your text here..." minlength="110" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom btn-lg">Run Emotion Detection</button>
+                    </form>
+                </div>
+
+                {% if result %}
+                <div class="result-section mt-4">
+                    {% if result.dominant_emotion %}
+                        <h2 class="mb-3">Result of Emotion Detection</h2>
+                        <p>For the given statement, the system response is:</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Anger:</strong> {{ result.anger }}</li>
+                            <li><strong>Disgust:</strong> {{ result.disgust }}</li>
+                            <li><strong>Fear:</strong> {{ result.fear }}</li>
+                            <li><strong>Joy:</strong> {{ result.joy }}</li>
+                            <li><strong>Sadness:</strong> {{ result.sadness }}</li>
+                        </ul>
+                        <p>The dominant emotion is: <strong>{{ result.dominant_emotion }}</strong></p>
+                    {% else %}
+                        <p class="text-danger">{{ result.error }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
